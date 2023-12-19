@@ -9,21 +9,21 @@ The challenge will contain a few core features most applications have. That incl
 The API we want you to connect to is https://kanye.rest/
 
 ### The application should have the following features:
-* A web page that shows 5 random Kayne West quotes
-* There should be a button to refresh the quotes
-* There should be a button besides each quote to save it to your favorites
-* A web page that shows your saved favorites
-* There should be a button to delete a quote from your favorites
-* Authentication for these pages should be done with a password
+* User authentication and profile update page
+* A page that shows 5 random Kayne West quotes
+    * There should be a button to refresh the quotes
+    * There should be a button besides each quote to save it to your favorites
+* A page that shows your saved favorites
+    * There should be a button to delete a quote from your favorites
+* Implement rate limiting for API requests to `https://kanye.rest/` preventing abuse.
+    * The API should be limited to 30 requests per minutes
+* Separate admin authentication for moderating saved user quotes and banning users
 * Frontend should be done with Vue.js and optionally Inertia.js
 * An API route should be available to fetch a specified number of quotes random Kayne West quotes
 * An API route should be available to fetch your favorites quotes
 * An API route should be available to delete a quote from your favorites
-* All API route should be secured with a token
+* All API route should be secured with an user token
 * Above features are to be tested with Feature tests
-
-Imagine this app is going to be submitted to Kanye himself, so you implement a new extra feature to really impress him with your creativity and coding skills.
-What would that new killer feature be? Please implement it in the app.
 
 ## Developer
 Name: `<your name>` <br/>
