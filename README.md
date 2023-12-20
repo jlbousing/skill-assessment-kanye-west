@@ -19,6 +19,8 @@ The API we want you to connect to is https://kanye.rest/
     * The API should be limited to 30 requests per minutes
 * Separate admin authentication for moderating saved user quotes and banning users
 * Frontend should be done with Vue.js and optionally Inertia.js
+    * Typescript should be used for any frontend functionality
+    * UI should be responsive
 * An API route should be available to fetch a specified number of quotes random Kayne West quotes
 * An API route should be available to fetch your favorites quotes
 * An API route should be available to delete a quote from your favorites
