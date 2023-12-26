@@ -4,14 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuoteRequest;
 use App\Models\Quote;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 
 class QuoteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function searchQuoteByText($text)
+    {
+        $result = Quote::where("text",$text)->get();
+
+        if($result->count() > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function index()
     {
         $quotes = [];
@@ -21,12 +30,17 @@ class QuoteController extends Controller
             for ($i = 0; $i < 5; $i++) {
 
                 $result = Http::get("https://api.kanye.rest")->body();
-                array_push($quotes,json_decode($result));
+                $item = json_decode($result);
+
+                $item->isFavorite = $this->searchQuoteByText($item->quote);
+
+                array_push($quotes,$item);
 
             }
 
             return Inertia::render("Quotes/Index",[
-                "quotes" => $quotes
+                "quotes" => $quotes,
+                "user" => Auth::user()
             ]);
 
         } catch (\Exception $e) {
@@ -41,9 +55,13 @@ class QuoteController extends Controller
     public function store(StoreQuoteRequest $request)
     {
         $data = $request->all();
-        Quote::create($data);
+        $quote = Quote::create($data);
 
-        return redirect("quotes.index");
+        return response()->json([
+            "status" => 201,
+            "data" => $quote,
+            "message" => "Quote created success"
+        ],201);
     }
 
     public function refresh()
@@ -55,7 +73,11 @@ class QuoteController extends Controller
             for ($i = 0; $i < 5; $i++) {
 
                 $result = Http::get("https://api.kanye.rest")->body();
-                array_push($quotes,json_decode($result));
+                $item = json_decode($result);
+
+                $item->isFavorite = $this->searchQuoteByText($item->quote);
+
+                array_push($quotes,$item);
 
             }
 
@@ -82,8 +104,15 @@ class QuoteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Quote $quote)
+    public function destroy($id, $text)
     {
-        //
+        Quote::where("user_id",$id)
+                        ->where("text",$text)
+                        ->delete();
+
+        return response()->json([
+            "status" => 200,
+            "message" => "Deleted quote success"
+        ]);
     }
 }

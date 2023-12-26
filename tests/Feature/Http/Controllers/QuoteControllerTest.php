@@ -23,8 +23,10 @@ class QuoteControllerTest extends TestCase
         $response->assertStatus(200);
 
         $quotes = $response->original->getData()["page"]["props"]["quotes"];
+        $userData = $response->original->getData()["page"]["props"]["user"];
 
         $this->assertTrue(count($quotes) === 5);
+        $this->assertTrue($user->id === $userData["id"]);
     }
 
     public function test_store()
@@ -41,7 +43,7 @@ class QuoteControllerTest extends TestCase
             "accept" => "application/json"
         ]);
 
-        $response->assertRedirect("quotes.index");
+        $response->assertStatus(201);
 
         $this->assertDatabaseHas("quotes",[
             "user_id" => $user->id,
@@ -61,5 +63,24 @@ class QuoteControllerTest extends TestCase
 
         $this->assertTrue(count($data) === 5);
     }
+
+    public function test_destroy()
+    {
+        $user = User::factory()->create();
+        Sanctum::actingAs($user);
+
+        $quote = Quote::factory()->create();
+        $quote->user_id = $user->id;
+        $quote->save();
+
+        $response = $this->delete("quotes/user/{$user->id}/quote/{$quote->text}");
+        $response->assertStatus(200);
+
+        $this->assertDatabaseMissing("quotes",[
+            "user_id" => $user->id,
+            "text" => $quote->text
+        ]);
+    }
+
 
 }

@@ -23,6 +23,7 @@ Route::middleware([
     Route::get("quotes",[QuoteController::class,"index"]);
     Route::post("quotes",[QuoteController::class,"store"]);
     Route::get("quotes/refresh", [QuoteController::class,"refresh"]);
+    Route::delete("quotes/user/{id}/quote/{text}",[QuoteController::class,"destroy"]);
 
     Route::get('/dashboard', function () {
         return redirect("quotes");

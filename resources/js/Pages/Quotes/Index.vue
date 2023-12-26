@@ -2,7 +2,7 @@
     <AppLayout title="Dashboard">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
+                Quotes
             </h2>
         </template>
 
@@ -14,8 +14,14 @@
                     <ul class="p-2" v-else>
                         <li v-for="(item,index) in quotes"
                             :key="index"
-                             class="my-4 border-2 rounded-lg lg:py-4">
-                            {{item.quote}}
+                             class="my-4 border-2 rounded-lg lg:py-4
+                                    flex">
+                                <span class="w-[95%]">{{item.quote}}</span>
+                            <button class="pointer" @click="addFavoriteQuote(item)">
+                                <HeartIcon class="h-6 w-6 items-center"
+                                           :class="{'text-red-500': item.isFavorite, 'text-red-200': !item.isFavorite}"/>
+                            </button>
+
                         </li>
                     </ul>
 
@@ -32,8 +38,9 @@
 <script lang="ts">
 import AppLayout from '@/Layouts/AppLayout.vue';
 import LoadingSpinner from '@/Components/LoadingSpinner.vue';
-
+import {HeartIcon} from "@heroicons/vue/16/solid";
 import {Quotes} from "@/Types/quotes";
+import { User} from "@/Types/User";
 import {KanyeQuote} from "@/Types/KanyeQuote";
 import {PropType, ref} from "vue";
 import axios from "axios";
@@ -43,11 +50,16 @@ export default {
     name: "Index",
     components: {
         AppLayout,
-        LoadingSpinner
+        LoadingSpinner,
+        HeartIcon
     },
     props: {
         quotes: {
             type: Array as PropType<KanyeQuote[]>,
+            required: true
+        },
+        user: {
+            type: Object as PropType<User>,
             required: true
         }
     },
@@ -74,6 +86,35 @@ export default {
                     console.error('Error al actualizar las citas', error);
                     this.loading = false;
                 }
+            }
+        },
+        addFavoriteQuote: async function(quote: KanyeQuote) {
+
+            if(!quote.isFavorite) {
+
+                const quoteFav: Quotes = {
+                    user_id: this.user.id,
+                    text: quote.quote
+                }
+
+                console.log("nuevo qute ",quoteFav);
+
+                try {
+
+                    const result = await axios.post("quotes",quoteFav);
+
+                    if(result.status == 201) {
+                        const index = this.quotes.indexOf(quote);
+                        this.quotes[index].isFavorite = true;
+                    }
+                } catch (error) {
+                    console.log("error al guardar cita", error)
+                }
+
+            }else {
+
+                const index = this.quotes.indexOf(quote);
+                this.quotes[index].isFavorite = false;
             }
         }
     }
