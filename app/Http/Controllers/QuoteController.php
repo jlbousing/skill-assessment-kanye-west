@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuoteRequest;
-use App\Http\Requests\UpdateQuoteRequest;
 use App\Models\Quote;
-use http\Env\Request;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 
