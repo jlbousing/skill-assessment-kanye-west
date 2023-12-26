@@ -22,6 +22,8 @@
 
                         </li>
                     </ul>
+
+                    <span v-if="quotes.length <= 0">You don`t have any favorites quotes</span>
                 </div>
             </div>
         </div>
@@ -65,17 +67,20 @@ export default {
     },
     methods: {
         deleteQuote: async function(quote: Quotes) {
+            this.loading = true;
             try {
 
-                const result = await axios.delete(`quotes/user/${this.user.id}/quote/${quote.text}`);
+                const result = await axios.delete(`${quote.id}`);
 
                 if(result.status === 200) {
                     const index = this.quotes.indexOf(quote);
                     this.quotes.splice(index,1);
                 }
 
+                this.loading = false;
             } catch (error) {
                 console.log("error al eliminar quote ",error)
+                this.loading = false;
             }
         }
     },
