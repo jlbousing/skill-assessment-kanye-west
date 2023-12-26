@@ -48,7 +48,10 @@ class QuoteController extends Controller
      */
     public function store(StoreQuoteRequest $request)
     {
-        //
+        $data = $request->all();
+        Quote::create($data);
+
+        return redirect("quotes.index");
     }
 
     /**

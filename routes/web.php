@@ -24,4 +24,5 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get("quotes",[QuoteController::class,"index"]);
+    Route::post("quotes",[QuoteController::class,"store"]);
 });

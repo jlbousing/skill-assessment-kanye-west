@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,10 @@ class QuoteFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "user_id" => User::factory(),
+            "text" => $this->faker->text,
+            "created_at" => Carbon::now(),
+            "updated_at" => Carbon::now()
         ];
     }
 }
