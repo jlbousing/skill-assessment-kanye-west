@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreQuoteRequest;
 use App\Http\Requests\UpdateQuoteRequest;
 use App\Models\Quote;
+use Illuminate\Support\Facades\Http;
+use Inertia\Inertia;
 
 class QuoteController extends Controller
 {
@@ -13,7 +15,24 @@ class QuoteController extends Controller
      */
     public function index()
     {
-        //
+        $quotes = [];
+
+        try {
+
+            for ($i = 0; $i < 5; $i++) {
+
+                $result = Http::get("https://api.kanye.rest")->body();
+                array_push($quotes,json_decode($result));
+
+            }
+
+            return Inertia::render("Quotes/Index",[
+                "quotes" => $quotes
+            ]);
+
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     /**
