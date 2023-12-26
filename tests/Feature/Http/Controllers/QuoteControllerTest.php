@@ -48,4 +48,18 @@ class QuoteControllerTest extends TestCase
             "text" => $payload["text"]
         ]);
     }
+
+    public function test_refresh_quotes()
+    {
+        $user = User::factory()->create();
+        Sanctum::actingAs($user);
+
+        $response = $this->get("quotes/refresh");
+        $response->assertStatus(200);
+
+        $data = $response->json()["data"];
+
+        $this->assertTrue(count($data) === 5);
+    }
+
 }

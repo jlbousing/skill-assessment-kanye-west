@@ -18,7 +18,10 @@
                         </li>
                     </ul>
 
-                    <button class="p-4 bg-blue-400 text-white rounded-lg">Refresh Quotes</button>
+                    <button class="p-2 bg-blue-400 text-white rounded-lg pointer
+                                   focus:bg-blue-300"
+                                   @click="refresh()"
+                    >Refresh Quotes</button>
                 </div>
             </div>
         </div>
@@ -31,6 +34,7 @@ import Welcome from '@/Components/Welcome.vue';
 import {Quotes} from "@/Types/quotes";
 import {KanyeQuote} from "@/Types/KanyeQuote";
 import {PropType} from "vue";
+import axios from "axios";
 
 
 export default {
@@ -45,9 +49,17 @@ export default {
             required: true
         }
     },
-    mounted() {
-        console.log(Array.isArray(this.quotes)); // Debería imprimir 'true'
-        console.log(this.quotes);
+    methods: {
+        refresh: async function() {
+            try {
+                const response = await axios.get('https://api.kanye.rest');
+                console.log(response);
+                //const newQuote = { quote: response.data.quote }; // Asegúrate de que la estructura coincida con tu tipo Quotes
+                //quotes.value = [newQuote, ...quotes.value]; // Agrega la nueva cita al principio del array
+            } catch (error) {
+                console.error('Error al actualizar las citas', error);
+            }
+        }
     }
 }
 </script>
