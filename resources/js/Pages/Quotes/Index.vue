@@ -115,10 +115,10 @@ export default {
 
                 try {
 
-                    const result = await axios.delete(`quotes/user/${this.user.id}/quote/${quote.quote}`);
+                    const result = await axios.delete(`quotes/text/${quote.quote}`);
 
                     if(result.status === 200) {
-                        console.log("hey bro ",result);
+                        console.log("hey bro")
                         const index = this.quotes.indexOf(quote);
                         this.quotes[index].isFavorite = false;
                     }

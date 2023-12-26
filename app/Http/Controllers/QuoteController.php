@@ -96,6 +96,7 @@ class QuoteController extends Controller
     {
         $quotes = Quote::where("user_id",Auth::id())->get();
 
+
         return Inertia::render("Quotes/Favorites",[
             "quotes" => $quotes,
             "user" => Auth::user()
@@ -105,7 +106,18 @@ class QuoteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($text)
+    public function destroy(Quote $quote)
+    {
+        $quote->delete();
+
+        return response()->json([
+            "status" => 200,
+            "message" => "Deleted quote success"
+        ]);
+
+    }
+
+    public function destroyByText($text)
     {
         Quote::where("user_id",Auth::id())
                         ->where("text",$text)

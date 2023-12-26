@@ -63,6 +63,24 @@ class QuoteControllerTest extends TestCase
         $this->assertTrue(count($data) === 5);
     }
 
+    public function test_destroy_by_text()
+    {
+        $user = User::factory()->create();
+        Sanctum::actingAs($user);
+
+        $quote = Quote::factory()->create();
+        $quote->user_id = $user->id;
+        $quote->save();
+
+        $response = $this->delete("quotes/text/{$quote->text}");
+        $response->assertStatus(200);
+
+        $this->assertDatabaseMissing("quotes",[
+            "user_id" => $user->id,
+            "text" => $quote->text
+        ]);
+    }
+
     public function test_destroy()
     {
         $user = User::factory()->create();
@@ -72,15 +90,15 @@ class QuoteControllerTest extends TestCase
         $quote->user_id = $user->id;
         $quote->save();
 
-        $response = $this->delete("quotes/quote/{$quote->text}");
+        $response = $this->delete("quotes/{$quote->id}");
         $response->assertStatus(200);
 
         $this->assertDatabaseMissing("quotes",[
             "user_id" => $user->id,
             "text" => $quote->text
         ]);
-    }
 
+    }
     public function test_favorites()
     {
         $user = User::factory()->create();
