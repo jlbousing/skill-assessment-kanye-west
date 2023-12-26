@@ -113,8 +113,19 @@ export default {
 
             }else {
 
-                const index = this.quotes.indexOf(quote);
-                this.quotes[index].isFavorite = false;
+                try {
+
+                    const result = await axios.delete(`quotes/user/${this.user.id}/quote/${quote.quote}`);
+
+                    if(result.status === 200) {
+                        console.log("hey bro ",result);
+                        const index = this.quotes.indexOf(quote);
+                        this.quotes[index].isFavorite = false;
+                    }
+
+                } catch (error) {
+                    console.log("error al eliminar quote ",error)
+                }
             }
         }
     }
