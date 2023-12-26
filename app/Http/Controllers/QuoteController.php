@@ -98,6 +98,7 @@ class QuoteController extends Controller
 
         return Inertia::render("Quotes/Favorites",[
             "quotes" => $quotes,
+            "user" => Auth::user()
         ]);
     }
 
