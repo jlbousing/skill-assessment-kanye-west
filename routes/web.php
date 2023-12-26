@@ -19,10 +19,11 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Quotes/Index');
-    })->name('dashboard');
 
     Route::get("quotes",[QuoteController::class,"index"]);
     Route::post("quotes",[QuoteController::class,"store"]);
+
+    Route::get('/dashboard', function () {
+        return redirect("quotes");
+    })->name('dashboard');
 });

@@ -1,18 +1,14 @@
 {
-    "extends": "@vue/tsconfig/tsconfig.json",
     "compilerOptions": {
-        "strict": false,
-        "allowJs": true,
-        "noImplicitAny": false,
-        "types": ["vite/client"],
+        "target": "ES2016",
+        "module": "CommonJS",
         "paths": {
-            "@/*": ["resources/js/*"]
+            "@/*": "./resources/js/*",
         },
-        "baseUrl": ".",
-    },
-    "include": [
-        "resources/**/*.ts",
-        "resources/**/*.d.ts",
-        "resources/**/*.vue"
-    ]
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noImplicitAny": false
+    }
 }
