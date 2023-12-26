@@ -73,13 +73,34 @@ class QuoteControllerTest extends TestCase
         $quote->user_id = $user->id;
         $quote->save();
 
-        $response = $this->delete("quotes/user/{$user->id}/quote/{$quote->text}");
+        $response = $this->delete("quotes/quote/{$quote->text}");
         $response->assertStatus(200);
 
         $this->assertDatabaseMissing("quotes",[
             "user_id" => $user->id,
             "text" => $quote->text
         ]);
+    }
+
+    public function test_favorites()
+    {
+        $user = User::factory()->create();
+        Sanctum::actingAs($user);
+
+        $quotes = Quote::factory(20)->create();
+        foreach ($quotes as $quote) {
+            $quote->user_id = $user->id;
+            $quote->save();
+        }
+
+        $response = $this->get("quotes/favorites");
+        $response->assertStatus(200);
+
+        $quotesData = $response->original->getData()["page"]["props"]["quotes"];
+        $userData = $response->original->getData()["page"]["props"]["user"];
+
+        $this->assertTrue(count($quotesData) === $quotes->count());
+        $this->assertTrue($user->id === $userData["id"]);
     }
 
 

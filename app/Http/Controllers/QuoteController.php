@@ -92,21 +92,21 @@ class QuoteController extends Controller
         }
     }
 
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Quote $quote)
+    public function favorites()
     {
-        //
+        $quotes = Quote::where("user_id",Auth::id())->get();
+
+        return Inertia::render("Quotes/Favorites",[
+            "quotes" => $quotes,
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id, $text)
+    public function destroy($text)
     {
-        Quote::where("user_id",$id)
+        Quote::where("user_id",Auth::id())
                         ->where("text",$text)
                         ->delete();
 
