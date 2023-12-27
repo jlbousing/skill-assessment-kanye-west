@@ -79,13 +79,18 @@ Email: `jbousing@gmail.com`<br/>
     ```shell
     ./vendor/bin/sail up -d
     ```
+
+4. Run Vite server to display Vue files:
+    ```shell
+    ./vendor/bin/sail npm run dev
+    ```
    
-4. Generate a new secret key:
+5. Generate a new secret key:
     ```shell
     ./vendor/bin/sail artisan key:generate
     ```
    
-5. (IMPORTANT) Edit the README.md file and add your name and email.
+6. (IMPORTANT) Edit the README.md file and add your name and email.
     ```diff
     - Name: `<your name>` <br/>
     - Email: `<your email>` <br/>
@@ -93,7 +98,7 @@ Email: `jbousing@gmail.com`<br/>
     + Email: jhondoe@exmaple.com <br/>
     ```
    
-6. (IMPORTANT) Submit your first commit with just the changes to the README.md file. Must be done before starting the assignment.
+7. (IMPORTANT) Submit your first commit with just the changes to the README.md file. Must be done before starting the assignment.
     ```shell
     git add README.md
     git commit -m "Initial commit"
