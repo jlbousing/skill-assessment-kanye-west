@@ -1,0 +1,284 @@
+{
+	"info": {
+		"_postman_id": "7542a415-bf14-4bb7-85f7-bd48bd56740b",
+		"name": "Kanye",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3736696"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"testtest\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost/api/v1/users/login",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user favorites",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 1|iz7je0hpEt4DRvd3D3PDjvVEd1LiFiJdIt7kBvGXcb40a51e",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost/api/v1/quotes?user=1",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"quotes"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete favorite quote",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 1|iz7je0hpEt4DRvd3D3PDjvVEd1LiFiJdIt7kBvGXcb40a51e",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost/api/v1/quotes/6",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"quotes",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Five random from Kanye West API",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 1|iz7je0hpEt4DRvd3D3PDjvVEd1LiFiJdIt7kBvGXcb40a51e",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost/api/v1/quotes",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"quotes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "N random from Kanye West API",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 1|iz7je0hpEt4DRvd3D3PDjvVEd1LiFiJdIt7kBvGXcb40a51e",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost/api/v1/quotes?qtx=3",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"quotes"
+					],
+					"query": [
+						{
+							"key": "qtx",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get N favorites",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 1|iz7je0hpEt4DRvd3D3PDjvVEd1LiFiJdIt7kBvGXcb40a51e",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost/api/v1/quotes?qtx=2&user=1",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"quotes"
+					],
+					"query": [
+						{
+							"key": "qtx",
+							"value": "2"
+						},
+						{
+							"key": "user",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show quote",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 1|iz7je0hpEt4DRvd3D3PDjvVEd1LiFiJdIt7kBvGXcb40a51e",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost/api/v1/quotes/8",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"quotes",
+						"8"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

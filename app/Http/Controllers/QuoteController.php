@@ -7,19 +7,11 @@ use App\Models\Quote;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
+use App\Helper\KanyeAPIHandler;
 
 class QuoteController extends Controller
 {
-    public function searchQuoteByText($text)
-    {
-        $result = Quote::where("text",$text)->get();
 
-        if($result->count() > 0) {
-            return true;
-        }
-
-        return false;
-    }
 
     public function index()
     {
@@ -27,16 +19,7 @@ class QuoteController extends Controller
 
         try {
 
-            for ($i = 0; $i < 5; $i++) {
-
-                $result = Http::get("https://api.kanye.rest")->body();
-                $item = json_decode($result);
-
-                $item->isFavorite = $this->searchQuoteByText($item->quote);
-
-                array_push($quotes,$item);
-
-            }
+            $quotes = KanyeAPIHandler::getQuotesFromAPI();
 
             return Inertia::render("Quotes/Index",[
                 "quotes" => $quotes,
@@ -70,16 +53,7 @@ class QuoteController extends Controller
 
         try {
 
-            for ($i = 0; $i < 5; $i++) {
-
-                $result = Http::get("https://api.kanye.rest")->body();
-                $item = json_decode($result);
-
-                $item->isFavorite = $this->searchQuoteByText($item->quote);
-
-                array_push($quotes,$item);
-
-            }
+            $quotes = KanyeAPIHandler::getQuotesFromAPI();
 
             return response()->json([
                 "status" => 200,
