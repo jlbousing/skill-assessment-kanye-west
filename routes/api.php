@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\v1\QuoteController;
+use App\Http\Controllers\API\v1\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,12 @@ use App\Http\Controllers\API\v1\QuoteController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::prefix("v1")->group(function () {
+    Route::post('/users/login', [UserController::class, 'login']);
+    Route::post('/users/register', [UserController::class, 'register']);
+
+});
 
 Route::prefix("v1")->middleware("auth:sanctum")->group(function(){
     Route::apiResource("quotes", QuoteController::class);
