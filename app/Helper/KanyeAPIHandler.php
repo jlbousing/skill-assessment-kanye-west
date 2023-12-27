@@ -19,6 +19,9 @@ class KanyeAPIHandler
         return false;
     }
 
+    /**
+     * @throws \Exception
+     */
     public static function getQuotesFromAPI($qtx = 5)
     {
         $quotes = [];

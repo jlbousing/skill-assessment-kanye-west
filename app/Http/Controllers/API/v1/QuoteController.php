@@ -7,8 +7,8 @@ use App\Http\Resources\QuoteCollection;
 use App\Http\Resources\QuoteResource;
 use App\Models\Quote;
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Http;
+use App\Helper\KanyeAPIHandler;
 
 class QuoteController extends Controller
 {
@@ -58,16 +58,7 @@ class QuoteController extends Controller
             //GET RANDOM QUOTES FROM KANYE WEST API AND SPECIFIC QTX
             $quotes = [];
 
-            for ($i = 0; $i < $data["qtx"]; $i++) {
-
-                $result = Http::get("https://api.kanye.rest")->body();
-                $item = json_decode($result);
-
-                $item->isFavorite = $this->searchQuoteByText($item->quote);
-
-                array_push($quotes,$item);
-
-            }
+            $quotes = KanyeAPIHandler::getQuotesFromAPI($data["qtx"]);
 
             return response()->json([
                 "status" => 200,
@@ -81,16 +72,7 @@ class QuoteController extends Controller
 
             $quotes = [];
 
-            for ($i = 0; $i < 5; $i++) {
-
-                $result = Http::get("https://api.kanye.rest")->body();
-                $item = json_decode($result);
-
-                $item->isFavorite = $this->searchQuoteByText($item->quote);
-
-                array_push($quotes,$item);
-
-            }
+            $quotes = KanyeAPIHandler::getQuotesFromAPI();
 
             return response()->json([
                 "status" => 200,
